@@ -15,7 +15,7 @@ This python script is meant to help with it:
 
 ## Help
 
-```python
+```bash
 $ python ranger-options.py -h
 usage: ranger-options.py [-h] -r RANGER -u USER -p PASSWORD
                          (--list | --add_deny_policy | --del_deny_policy | --add_join_cond | --add_location_cond | --del_cond)
@@ -41,7 +41,7 @@ optional arguments:
 
 ## Show settings of Hive:
 
-```python
+```bash
 $ python ranger-options.py -r $RANGER -u admin -p $PASSWORD --list -s hive
 ==> hive (3):
 Deny Policy       = true
@@ -60,7 +60,7 @@ Context Enrichers = []
 
 ## Activate Deny Policies for Hive
 
-```python
+```bash
 $ python ranger-options.py -r $RANGER -u admin -p $PASSWORD --add_deny_policy -s hive
 hive: OK
 Mac-BW:ranger-options bwalter$ python ranger-options.py -r $RANGER -u admin -p $PASSWORD --list -s hive
@@ -72,7 +72,7 @@ Context Enrichers = []
 
 ## Deactivate Deny policies for Hive
 
-```python
+```bash
 $ python ranger-options.py -r $RANGER -u admin -p $PASSWORD --del_deny_policy -s hive
 hive: OK
 
@@ -86,7 +86,7 @@ Context Enrichers = []
 
 ## Add Access-Together policy for Hive
 
-```python
+```bash
 $ python ranger-options.py -r $RANGER -u admin -p $PASSWORD --list -s hive
 ==> hive (3):
 Deny Policy       = true
@@ -105,7 +105,7 @@ Context Enrichers = []
 
 ## Add Geo Location Policy for Hive
 
-```python
+```bash
 $ python ranger-options.py -r $RANGER -u admin -p $PASSWORD --list -s hive
 ==> hive (3):
 Deny Policy       = true
@@ -146,7 +146,11 @@ Note: this command also adds the context enricher.
 
 ## Delete hive policy conditions of Hive
 
-```python
+```bash
+$ python ranger-options.py -r $RANGER -u admin -p $PASSWORD --del_cond -s hive:1 hive:2
+hive: OK
+hive: OK
+
 python ranger-options.py -r $RANGER -u admin -p $PASSWORD --list -s hive
 ==> hive (3):
 Deny Policy       = true
