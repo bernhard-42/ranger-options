@@ -2,7 +2,7 @@
 
 Apache Ranger 0.6 (as in HDP 2.5) has a few options that can only be set via the REST API:
 
-- Enable Denx Policies
+- Enable Deny Policies
 - Add Policy Conditions (e.g. geolocation or access-together condition)
 - Context Enrichers (e.g. geo file for geolocation contdition)
 

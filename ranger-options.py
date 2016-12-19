@@ -27,11 +27,20 @@ denyOption = "enableDenyAndExceptionsInPolicies"
 policyConditions = "policyConditions"
 joinPolicyCondition = """{
   "itemId": %d,
-  "name": "resources-accessed-together",
+  "name": "accessed-together",
   "evaluator": "org.apache.ranger.plugin.conditionevaluator.RangerHiveResourcesAccessedTogetherCondition",
   "evaluatorOptions": {},
   "label": "Resources Accessed Together?",
   "description": "Resources Accessed Together?"
+}"""
+
+noJoinPolicyCondition = """{
+  "itemId": %d,
+  "name": "not-accessed-together",
+  "evaluator": "org.apache.ranger.plugin.conditionevaluator.RangerHiveResourcesNotAccessedTogetherCondition",
+  "evaluatorOptions": {},
+  "label": "Resources NOT Accessed Together?",
+  "description": "Resources NOT Accessed Together?"
 }"""
 
 locationAttribute = "org.apache.ranger.plugin.contextenricher.RangerFileBasedGeolocationProvider"
@@ -56,6 +65,7 @@ locationEnricher = """{
 }"""
 
 def put(sdef):
+  print "%s/%s" % (url, sdef["name"])
   res = requests.put("%s/%s" % (url, sdef["name"]), data=json.dumps(sdef), auth=auth, headers=headers)
   print "%s: %s" % (service, ("OK" if res.status_code == 200 else "Error: %d" % res.status_code))
 
@@ -81,6 +91,7 @@ def maxId(conditions):
 def addJoinConditions(sdef):
   itemId = maxId(sdef[policyConditions])
   sdef[policyConditions].append(json.loads(joinPolicyCondition % itemId))
+  sdef[policyConditions].append(json.loads(noJoinPolicyCondition % (itemId + 1)))
   put(sdef)
 
 
